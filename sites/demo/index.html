@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loading…</title>
+<link rel="stylesheet" href="/assets/site.css">
+<body>
+<header id="hero"><div class="container">
+  <h1 id="headline">…</h1>
+  <p id="sub">…</p>
+  <a id="cta" class="btn" href="#">…</a>
+</div></header>
+
+<main class="container">
+  <section>
+    <h2>What we do</h2>
+    <div id="services" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>About</h2>
+    <div id="about"></div>
+  </section>
+
+  <section>
+    <h2>Gallery</h2>
+    <div id="gallery" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <div class="card">
+      <p><b>Phone:</b> <a id="phone" href="#"></a></p>
+      <p><b>Email:</b> <a id="email" href="#"></a></p>
+      <p><b>Address:</b> <span id="addr"></span></p>
+
+      <!-- Easiest contact form: Formspree. Replace YOUR_FORM_ID below. -->
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="website" id="siteRef">
+        <p><input name="name" placeholder="Your name" required></p>
+        <p><input name="email" type="email" placeholder="Your email" required></p>
+        <p><textarea name="message" placeholder="How can we help?" required></textarea></p>
+        <button class="btn" type="submit">Send</button>
+      </form>
+      <p class="note">By submitting you consent to us contacting you. We’ll keep your details private.</p>
+    </div>
+  </section>
+</main>
+
+<footer>Created by fastwebsites</footer>
+
+<script>
+(async function(){
+  try{
+    const resp = await fetch('data.json');
+    const data = await resp.json();
+
+    // Theme colour
+    document.documentElement.style.setProperty('--brand', data.colour || '#0F766E');
+
+    // Head + hero
+    document.title = data.brand || 'Business';
+    document.getElementById('headline').textContent = data.headline || '';
+    document.getElementById('sub').textContent = data.sub || '';
+    const cta = document.getElementById('cta');
+    cta.textContent = data.cta || 'WhatsApp us';
+    if (data.whatsapp) cta.href = 'https://wa.me/' + String(data.whatsapp);
+
+    // Services
+    const s = document.getElementById('services');
+    (data.services || []).forEach(txt=>{
+      const div = document.createElement('div');
+      div.className='card';
+      div.textContent = txt;
+      s.appendChild(div);
+    });
+
+    // About
+    document.getElementById('about').innerHTML = data.aboutHtml || '';
+
+    // Gallery
+    const g = document.getElementById('gallery');
+    (data.gallery || []).forEach(src=>{
+      const img = document.createElement('img');
+      img.src = src; img.alt='';
+      g.appendChild(img);
+    });
+
+    // Contact refs
+    const phone = document.getElementById('phone');
+    if (data.phone){ phone.textContent=data.phone; phone.href='tel:'+data.phone; }
+    const email = document.getElementById('email');
+    if (data.email){ email.textContent=data.email; email.href='mailto:'+data.email; }
+    document.getElementById('addr').textContent = data.address || '';
+    document.getElementById('siteRef').value = location.href;
+  }catch(e){
+    console.error(e);
+  }
+})();
+</script>
+</body></html>
