@@ -1,0 +1,14 @@
+{
+  "brand": "Demo Plumbers",
+  "colour": "#0F766E",
+  "headline": "Reliable plumbing in Bloemfontein",
+  "sub": "Burst pipes, geysers, leaks — we fix it fast.",
+  "cta": "WhatsApp us",
+  "whatsapp": "27821234567",
+  "phone": "0821234567",
+  "email": "info@demoplumbers.co.za",
+  "address": "Bloemfontein",
+  "services": ["Burst pipes", "Geyser repairs", "Leak detection", "Blocked drains"],
+  "gallery": ["/assets/demo1.jpg", "/assets/demo2.jpg", "/assets/demo3.jpg"],
+  "aboutHtml": "<p>We’re a local team with 15+ years experience. Licensed, insured, and friendly.</p>"
+}
